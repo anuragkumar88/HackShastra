@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeStay - Find Your Perfect Accommodation</title>
+
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">SafeStay</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resultsContainer">Listings</a></li>
+          <li class="nav-item"><a class="nav-link" href="#favoritesContainer">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" id="openOwnerBtn">For Owners</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <header class="py-3 text-center">
+      <h1 class="display-5">SafeStay</h1>
+      <p class="lead mb-0">Find safe, affordable accommodation near your college or workplace</p>
+    </header>
+
+    <!-- Popular Cities -->
+    <section class="py-3 bg-light mb-4">
+      <div class="container text-center">
+        <h4 class="mb-3">Popular Cities</h4>
+        <div class="row g-3 justify-content-center">
+          <div class="col-4 col-md-2">
+            <div class="city-card" data-city="Bengaluru">
+              <img src="11zon_cropped.png" class="rounded-circle img-fluid">
+              <p class="mt-2">Bengaluru</p>
+            </div>
+          </div>
+          <div class="col-4 col-md-2">
+            <div class="city-card" data-city="Chennai">
+              <img src="Chennai Skyline with Gray Landmarks, Blue Sky and Copy Space_.jpeg" class="rounded-circle img-fluid">
+              <p class="mt-2">Chennai</p>
+            </div>
+          </div>
+          <div class="col-4 col-md-2">
+            <div class="city-card" data-city="Delhi">
+              <img src="11zon_cropped (1).png" class="rounded-circle img-fluid">
+              <p class="mt-2">Delhi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search card -->
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-3">Find Your Perfect Stay</h4>
+            <form id="searchForm" class="row g-3">
+
+              <!-- Budget -->
+              <div class="col-md-6">
+                <label for="budget" class="form-label">Budget (₹)</label>
+                <input type="range" class="form-range" id="budget" min="3000" max="50000" step="500" value="10000">
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">Min: ₹3000</small>
+                  <span id="budgetValue" class="fw-bold">₹10000</span>
+                  <small class="text-muted">Max: ₹50000</small>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="col-md-6">
+                <label for="location" class="form-label">Location</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                  <input type="text" class="form-control" id="location" placeholder="Enter your college or office address" required>
+                </div>
+              </div>
+
+              <!-- Accommodation Type -->
+              <div class="col-md-6">
+                <label class="form-label">Accommodation Type</label>
+                <select class="form-select" id="accommodationType" required>
+                  <option value="all" selected>Any</option>
+                  <option value="pg">PG</option>
+                  <option value="flat">Flat</option>
+                  <option value="hostel">Hostel</option>
+                </select>
+              </div>
+
+              <!-- Room Type -->
+              <div class="col-md-6">
+                <label class="form-label">Room Type</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="roomType" id="single" value="single" checked>
+                    <label class="form-check-label" for="single">Single</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="roomType" id="sharing" value="sharing">
+                    <label class="form-check-label" for="sharing">Sharing</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- No. of Roommates -->
+              <div class="col-md-6" id="roommatesContainer" style="display:none;">
+                <label for="roommates" class="form-label">No. of Roommates</label>
+                <input type="number" class="form-control" id="roommates" min="2" max="6" value="2">
+              </div>
+
+              <!-- Submit -->
+              <div class="col-12 d-flex gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary btn-lg flex-fill">Find Accommodations</button>
+                <select id="sortBy" class="form-select w-auto">
+                  <option value="relevance">Sort: Relevance</option>
+                  <option value="priceLowHigh">Price: Low → High</option>
+                  <option value="priceHighLow">Price: High → Low</option>
+                  <option value="safety">Safety</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsContainer" class="mt-4" style="display:none;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Top Recommendations for You</h5>
+            <small id="resultsCount" class="text-muted"></small>
+          </div>
+          <div class="row" id="listingsContainer"></div>
+
+          <!-- Favorites -->
+          <div class="mt-4">
+            <h6 class="mb-2">Your Favorites ❤️</h6>
+            <div id="favoritesContainer" class="d-flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Owner Section -->
+ <section id="owner" class="py-5 bg-light" style="display:none;">
+    <div class="container">
+      <h2 class="text-center mb-4">For Accommodation Owners</h2>
+      <div class="card shadow-sm p-4">
+        <form id="ownerForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Owner Name</label>
+              <input type="text" class="form-control" id="ownerName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Contact Number</label>
+              <input type="text" class="form-control" id="ownerContact" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Accommodation Name</label>
+              <input type="text" class="form-control" id="pgName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" id="pgCity" required>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-control" id="pgAddress" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Monthly Rent (₹)</label>
+              <input type="number" class="form-control" id="pgRent" required>
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Images (URLs, comma-separated)</label>
+              <input type="text" class="form-control" id="pgImages">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success mt-3">➕ Add Accommodation</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" class="bg-dark text-white py-4">
+    <div class="container text-center">
+      <h5>Contact Us</h5>
+      <p>Email: support@safestay.com | Phone: +91 92345 67890</p>
+      <small>&copy; 2025 SafeStay. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
